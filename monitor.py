@@ -4,13 +4,20 @@ from host import host
 import subprocess
 import sys
 from os import system
+import pathos.multiprocessing as mp
+import time
+from functools import partial
+
 
 class monitor:
-    hosts = []
+     
     def __init__(self,hostfile,oidfile):
+        self.hosts = []
+        self.oids = []
+        self.recentData = {}
         self.setHosts(hostfile)
         self.setOids(oidfile)
-        self.main()
+        self.pool = mp.ProcessingPool(len(self.hosts))
 
     def fileCheck(self,filename):
         try:
@@ -25,7 +32,7 @@ class monitor:
             f = open(filename, "r")
             for line in f.readlines():
                 data = line.strip().split(";")
-                h = host(data[0],data[1],data[2],"2c")
+                h = host(data[0],data[1],data[2])
                 self.hosts.append(h)
             f.close()
         
@@ -35,19 +42,31 @@ class monitor:
             f = open(filename, "r")
             for line in f.readlines():
                 data = line.rstrip('\n')
+                self.oids.append(data)
                 for h in self.hosts:
                     h.appendOid(data)
+            f.close()
             
+    def fetchData(self,h):
+        return h.getData()
 
-    def getData(self):
-        data = {}
-        for h in self.hosts:
-            data[h.getName()] = h.getData()
-       
+    def update(self):
+        func = partial(self.fetchData)
+        results = self.pool.map(func, tuple(self.hosts))
+        for resultDictionary in results:
+            self.recentData[resultDictionary['sysName.0']]=resultDictionary
 
-    def main(self):
-        self.getData()
+    def sendToLog(self):
+        print("Log from hosts: ")
+        print self.recentData
 
-m = monitor(sys.argv[1],sys.argv[2])
+
+
+if __name__ == "__main__":
+    m = monitor(sys.argv[1],sys.argv[2])
+    print("starting monitor")
+    m.update()
+    m.sendToLog()
+
     
 
