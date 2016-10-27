@@ -66,11 +66,9 @@ class monitor:
 
 if __name__ == "__main__":
     m = monitor(sys.argv[1],sys.argv[2])
-    print("starting monitor")
-    while True:
-        m.update()
-        m.sendToLog()
-        time.sleep(30)
+    m.update()
+    m.sendToLog()
+    
 
     
 
