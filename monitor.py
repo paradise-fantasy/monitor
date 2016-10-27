@@ -62,7 +62,6 @@ class monitor:
         for key in self.recentData.keys():
             publish.single("paradise/api/monitor",'{"sensor":"'+key+'","monitor":"'+str(self.recentData[key])+'"}', port=8883, tls={'ca_certs':"ca.crt",'tls_version':2}, hostname="nyx.bjornhaug.net")
             publish.single("paradise/log/monitor",key+" is alive!", port=8883, tls={'ca_certs':"ca.crt",'tls_version':2}, hostname="nyx.bjornhaug.net")
-        #publish.single("paradise/test", "working?", port=8883, tls={'ca_certs':"ca.crt",'tls_version':2}, hostname="nyx.bjornhaug.net")
 
 
 if __name__ == "__main__":
