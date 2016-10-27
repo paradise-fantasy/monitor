@@ -1,3 +1,2 @@
-sahara30.item.ntnu.no;ttm4128
-sahara29.item.ntnu.no;ttm4128
 129.241.209.128;paradise
+129.241.208.158;paradise
