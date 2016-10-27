@@ -1,11 +1,12 @@
 #!/usr/bin/python
 
-from host import host
 import subprocess
 import sys
-from os import system
-import pathos.multiprocessing as mp
 import time
+import pathos.multiprocessing as mp
+
+from os import system
+from host import host
 from functools import partial
 
 
@@ -32,7 +33,7 @@ class monitor:
             f = open(filename, "r")
             for line in f.readlines():
                 data = line.strip().split(";")
-                h = host(data[0],data[1],data[2])
+                h = host(data[0],data[1])
                 self.hosts.append(h)
             f.close()
         
@@ -54,11 +55,11 @@ class monitor:
         func = partial(self.fetchData)
         results = self.pool.map(func, tuple(self.hosts))
         for resultDictionary in results:
-            self.recentData[resultDictionary['sysName.0']]=resultDictionary
+            self.recentData[resultDictionary['sysName.0'][0]]=resultDictionary
 
     def sendToLog(self):
-        print("Log from hosts: ")
-        print self.recentData
+        for key in self.recentData.keys():
+            print key +" :: " + str(self.recentData[key])
 
 
 
