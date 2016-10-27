@@ -5,11 +5,10 @@ import subprocess
 
 class host:
 
-    def __init__(self,ip,name,community):
+    def __init__(self,ip,community):
         self.data = {}
         self.oids = []
         self.ip = ip
-        self.name = name
         self.community = "-c "+community
         self.version = "-v 2c"
 
@@ -30,13 +29,10 @@ class host:
             out, err = p.communicate()
             out.split('\n')
             out = out[:-1]
+            multiValueStore = []
             for line in out.split('\n'):
-                print "---"
-                print line.split(":")[-1].rstrip('\r\n').lstrip()
-                print "###"
-                self.data[oid]=line.split(":")[-1].rstrip('\r\n').lstrip()    
-                
-                #self.data[oid]=out.split(":")[-1].rstrip('\r\n').lstrip()
+                multiValueStore.append(line.split(":")[-1].rstrip('\r\n').lstrip())
+            self.data[oid]=tuple(multiValueStore)   
         return self.data
     
 
