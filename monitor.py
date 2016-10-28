@@ -57,20 +57,6 @@ class monitor:
         func = partial(self.fetchData)
         results = self.pool.map(func, tuple(self.hosts))
         return results
-        #print results
-        #for resultDictionary in results:
-        #    self.recentData[resultDictionary['host']]=resultDictionary
-
-    #def sendToLog(self):
-    #    for key in self.recentData.keys():
-    #        publish.single("paradise/api/monitor",JSONEncoder().encode(self.recentData[key]), port=8883, tls={'ca_certs':"ca.crt",'tls_version':2}, hostname="nyx.bjornhaug.net")
-    #        publish.single("paradise/log/monitor",key+" is alive!", port=8883, tls={'ca_certs':"ca.crt",'tls_version':2}, hostname="nyx.bjornhaug.net")
-
-
-#if __name__ == "__main__":
-#    m = monitor(sys.argv[1],sys.argv[2])
-#    m.update()
-#    m.sendToLog()
     
 
     
