@@ -11,6 +11,7 @@ class host:
         self.ip = ip
         self.community = "-c "+community
         self.version = "-v 2c"
+        self.setName()
 
     def getName(self):
         return self.name
@@ -22,6 +23,11 @@ class host:
         global oids
         return self.oids
 
+    def setName(self):
+        p = subprocess.Popen(["snmpget %s %s %s %s" %(self.community,self.version,self.ip,"sysName.0")],stdout=subprocess.PIPE, shell=True)
+        out, err = p.communicate()
+        self.name = out.split()[-1]
+
 
     def getData(self):
         for oid in self.getOids():
@@ -32,7 +38,8 @@ class host:
             multiValueStore = []
             for line in out.split('\n'):
                 multiValueStore.append(line.split(":")[-1].rstrip('\r\n').lstrip())
-            self.data[oid]=tuple(multiValueStore)   
+            self.data[oid.split('.')[0]]=tuple(multiValueStore)
+        self.data["host"]=self.name
         return self.data
     
 

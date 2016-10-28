@@ -6,6 +6,7 @@ import time
 import pathos.multiprocessing as mp
 import paho.mqtt.publish as publish
 
+from json import JSONEncoder
 from os import system
 from host import host
 from functools import partial
@@ -56,11 +57,11 @@ class monitor:
         func = partial(self.fetchData)
         results = self.pool.map(func, tuple(self.hosts))
         for resultDictionary in results:
-            self.recentData[resultDictionary['sysName.0'][0]]=resultDictionary
+            self.recentData[resultDictionary['host']]=resultDictionary
 
     def sendToLog(self):
         for key in self.recentData.keys():
-            publish.single("paradise/api/monitor",'{"sensor":"'+key+'","monitor":"'+str(self.recentData[key])+'"}', port=8883, tls={'ca_certs':"ca.crt",'tls_version':2}, hostname="nyx.bjornhaug.net")
+            publish.single("paradise/api/monitor",JSONEncoder().encode(self.recentData[key]), port=8883, tls={'ca_certs':"ca.crt",'tls_version':2}, hostname="nyx.bjornhaug.net")
             publish.single("paradise/log/monitor",key+" is alive!", port=8883, tls={'ca_certs':"ca.crt",'tls_version':2}, hostname="nyx.bjornhaug.net")
 
 
