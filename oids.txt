@@ -1,4 +1,3 @@
-sysName.0
 sysUpTimeInstance
 memTotalReal.0
 memAvailReal.0
