@@ -57,7 +57,7 @@ class monitor:
         func = partial(self.fetchData)
         results = self.pool.map(func, tuple(self.hosts))
         for resultDictionary in results:
-            self.recentData[resultDictionary['host'][0]]=resultDictionary
+            self.recentData[resultDictionary['host']]=resultDictionary
 
     def sendToLog(self):
         for key in self.recentData.keys():
