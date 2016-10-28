@@ -38,7 +38,7 @@ class host:
             multiValueStore = []
             for line in out.split('\n'):
                 multiValueStore.append(line.split(":")[-1].rstrip('\r\n').lstrip())
-            self.data[oid]=tuple(multiValueStore)
+            self.data[oid.split('.')[0]]=tuple(multiValueStore)
         self.data["host"]=self.name
         return self.data
     
