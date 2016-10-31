@@ -36,7 +36,8 @@ class monitor:
             for line in f.readlines():
                 data = line.strip().split(";")
                 h = host(data[0],data[1])
-                self.hosts.append(h)
+                if (h.getName() != "__destroy__"):
+                    self.hosts.append(h)
             f.close()
         
 

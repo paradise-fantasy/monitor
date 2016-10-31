@@ -26,7 +26,10 @@ class host:
     def setName(self):
         p = subprocess.Popen(["snmpget %s %s %s %s" %(self.community,self.version,self.ip,"sysName.0")],stdout=subprocess.PIPE, shell=True)
         out, err = p.communicate()
-        self.name = out.split()[-1]
+        try:
+            self.name = out.split()[-1]
+        except IndexError:
+            self.name = "__destroy__"
 
 
     def getData(self):
