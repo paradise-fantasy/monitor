@@ -28,15 +28,12 @@ def writeData(host,topic,newData):
         data[host][topic]=newData
     data[host]["Time"]=time.time()
     f.write(json.dumps(data,f))
-    print "finished writing"
     f.close()
 
 
 def reorder(data):
     tempStore = {}
     for subset in data:
-        #print subset
-        #print subset['memAvailReal']
         subset["Memory"]=calculateMemory(subset['memAvailReal'][0],subset['memTotalReal'][0])
         del subset['memAvailReal']
         del subset['memTotalReal']
