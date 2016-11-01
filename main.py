@@ -62,8 +62,22 @@ def calculateBandwidth(host,incomming):
     writeData(host,"Bandwidth",incomming) 
     return bandwidth
     
+def addDeadHosts(data):
+    oldData = readData()
+    if oldData == None:
+        return data
 
+    for host in oldData.keys():
+        if host not in data.keys():
+            data[host]={}
+            data[host]["Host"]=[host]
+            data[host]["Uptime"]=["DOWN"]
+            data[host]["Bandwidth"]=["0.00 Mbit/sec"]
+            data[host]["Memory"]=["110 %"]
+            data[host]["Load"]=["0.00", "0.00", "0.00"]
+    return data
 
+    
 def sendToLog(data):
     publish.single("paradise/test/monitor",JSONEncoder().encode(data), port=8883, tls={'ca_certs':"ca.crt",'tls_version':2}, hostname="nyx.bjornhaug.net")
     publish.single("paradise/testlog/monitor","Alive=True", port=8883, tls={'ca_certs':"ca.crt",'tls_version':2}, hostname="nyx.bjornhaug.net")
@@ -72,4 +86,5 @@ if __name__ == "__main__":
     m = monitor("hosts.txt","oids.txt")
     rawData = m.update()
     processedData = reorder(rawData)
+    processedData = addDeadHosts(processedData)
     sendToLog(processedData)
