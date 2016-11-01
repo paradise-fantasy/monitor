@@ -6,10 +6,11 @@ from json import JSONEncoder
 import json
 from monitor import monitor
 import time
+import os
 
 def readData():
     try:
-        f = open("valueStore")
+        f = open(os.path.join(os.path.dirname(__file__),"valueStore"))
     except IOError:
         return None
     data = json.load(f)
@@ -20,7 +21,7 @@ def writeData(host,topic,newData):
     data = readData()
     if data==None:
         data = {}
-    f = open("valueStore","w")
+    f = open(os.path.join(os.path.dirname(__file__),"valueStore"),"w")
     if host in data.keys():
         data[host][topic]=newData
     else:
@@ -83,7 +84,7 @@ def sendToLog(data):
     publish.single("paradise/log/monitor","Alive=True", port=8883, tls={'ca_certs':"ca.crt",'tls_version':2}, hostname="nyx.bjornhaug.net")
 
 if __name__ == "__main__":
-    m = monitor("hosts.txt","oids.txt")
+    m = monitor(os.path.join(os.path.dirname(__file__),"hosts.txt"),os.path.join(os.path.dirname(__file__),"oids.txt"))
     rawData = m.update()
     processedData = reorder(rawData)
     processedData = addDeadHosts(processedData)
