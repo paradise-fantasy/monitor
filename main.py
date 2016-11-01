@@ -49,7 +49,7 @@ def reorder(data):
     return tempStore
 
 def calculateMemory(avail,total):
-    return [str("%.2f") % (float(avail.split()[0])/float(total.split()[0])*100)+" %"]
+    return [str("%.2f") % ((1-float(avail.split()[0])/float(total.split()[0]))*100)+" %"]
 
 
 def calculateBandwidth(host,incomming):
@@ -79,8 +79,8 @@ def addDeadHosts(data):
 
     
 def sendToLog(data):
-    publish.single("paradise/test/monitor",JSONEncoder().encode(data), port=8883, tls={'ca_certs':"ca.crt",'tls_version':2}, hostname="nyx.bjornhaug.net")
-    publish.single("paradise/testlog/monitor","Alive=True", port=8883, tls={'ca_certs':"ca.crt",'tls_version':2}, hostname="nyx.bjornhaug.net")
+    publish.single("paradise/api/monitor",JSONEncoder().encode(data), port=8883, tls={'ca_certs':"ca.crt",'tls_version':2}, hostname="nyx.bjornhaug.net")
+    publish.single("paradise/log/monitor","Alive=True", port=8883, tls={'ca_certs':"ca.crt",'tls_version':2}, hostname="nyx.bjornhaug.net")
 
 if __name__ == "__main__":
     m = monitor("hosts.txt","oids.txt")
