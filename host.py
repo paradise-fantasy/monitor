@@ -52,19 +52,19 @@ class host:
 
                     if (len(time)>4):
                         days = time[index]
-                        textDays = " dager, " if days > 1 else " dag, "
+                        textDays = " dager " if days > 1 else " dag "
                         text = str(days)+textDays
                         index+=1
                     if (len(time)==4):
                         index = 0
                     if (len(time)>3):
                         hours = time[index]
-                        textHours = " timer, " if hours > 1 else " time, "
+                        textHours = " timer " if hours > 1 else " time "
                         text += str(hours)+textHours
                         index+=1
                     if (len(time)>2):
                         minutes = time[index]
-                        textMinutes = " min, " if minutes > 1 else " min, "
+                        textMinutes = " min " if minutes > 1 else " min "
                         text += str(minutes)+textMinutes
                         index+=1
                     if (len(time)>1):
