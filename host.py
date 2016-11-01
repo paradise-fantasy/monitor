@@ -32,6 +32,11 @@ class host:
             self.name = "__destroy__"
 
 
+    def checkIfUpTime(self,data):
+        if "sysUpTime" in data:
+            return True
+        return False
+
     def getData(self):
         for oid in self.getOids():
             p = subprocess.Popen(["snmpwalk %s %s %s %s" %(self.community,self.version,self.ip,oid)],stdout=subprocess.PIPE, shell=True)
@@ -40,7 +45,11 @@ class host:
             out = out[:-1]
             multiValueStore = []
             for line in out.split('\n'):
-                multiValueStore.append(line.split(":")[-1].rstrip('\r\n').lstrip())
+                if (self.checkIfUpTime(line)):
+                    line=str(line.split(")")[-1].lstrip())
+                    multiValueStore.append(line)
+                else:
+                    multiValueStore.append(line.split(":")[-1].rstrip('\r\n').lstrip())
             self.data[oid.split('.')[0]]=tuple(multiValueStore)
         self.data["host"]=self.name
         return self.data
