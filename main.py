@@ -73,9 +73,9 @@ def addDeadHosts(data):
             data[host]={}
             data[host]["Host"]=[host]
             data[host]["Uptime"]=["DOWN"]
-            data[host]["Bandwidth"]=["0.00 Mbit/sec"]
+            data[host]["Bandwidth"]=["--- Mbit/sec"]
             data[host]["Memory"]=["110 %"]
-            data[host]["Load"]=["0.00", "0.00", "0.00"]
+            data[host]["Load"]=["---", "---", "---"]
     return data
 
     
