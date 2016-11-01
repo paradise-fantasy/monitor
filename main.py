@@ -31,7 +31,7 @@ def sendToLog(data):
     publish.single("paradise/testlog/monitor","Alive=True", port=8883, tls={'ca_certs':"ca.crt",'tls_version':2}, hostname="nyx.bjornhaug.net")
 
 if __name__ == "__main__":
-    m = monitor(sys.argv[1],sys.argv[2])
+    m = monitor("hosts.txt","oids.txt")
     rawData = m.update()
     processedData = reorder(rawData)
     sendToLog(processedData)
