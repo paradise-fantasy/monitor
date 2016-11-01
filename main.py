@@ -49,7 +49,7 @@ def reorder(data):
     return tempStore
 
 def calculateMemory(avail,total):
-    return [str("%.2f") % (float(avail.split()[0])/float(total.split()[0])*100)+" %"]
+    return [str("%.2f") % ((1-float(avail.split()[0])/float(total.split()[0]))*100)+" %"]
 
 
 def calculateBandwidth(host,incomming):
