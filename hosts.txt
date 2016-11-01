@@ -3,3 +3,4 @@
 129.241.209.68;paradise
 129.241.208.240;paradise
 129.241.209.67;paradise
+nyx.bjornhaug.net;paradise
