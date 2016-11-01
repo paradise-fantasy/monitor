@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 import subprocess
-
+import re
 
 class host:
 
@@ -46,8 +46,33 @@ class host:
             multiValueStore = []
             for line in out.split('\n'):
                 if (self.checkIfUpTime(line)):
-                    line=str(line.split(")")[-1].lstrip())
-                    multiValueStore.append(line)
+                    time = [int(s) for s in re.findall(r'\b\d+\b',line.split(")")[-1].lstrip())]
+                    text = ""
+                    index = 0
+
+                    if (len(time)>4):
+                        days = time[index]
+                        textDays = " dager, " if days > 1 else " dag, "
+                        text = str(days)+textDays
+                        index+=1
+                    if (len(time)==4):
+                        index = 0
+                    if (len(time)>3):
+                        hours = time[index]
+                        textHours = " timer, " if hours > 1 else " time, "
+                        text += str(hours)+textHours
+                        index+=1
+                    if (len(time)>2):
+                        minutes = time[index]
+                        textMinutes = " min, " if minutes > 1 else " min, "
+                        text += str(minutes)+textMinutes
+                        index+=1
+                    if (len(time)>1):
+                        seconds = time[index]
+                        textSeconds = " sek" if seconds > 1 else " sek"
+                        text += str(seconds)+textSeconds
+                    
+                    multiValueStore.append(text)
                 else:
                     multiValueStore.append(line.split(":")[-1].rstrip('\r\n').lstrip())
             self.data[oid.split('.')[0]]=tuple(multiValueStore)

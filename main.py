@@ -73,15 +73,14 @@ def addDeadHosts(data):
             data[host]={}
             data[host]["Host"]=[host]
             data[host]["Uptime"]=["DOWN"]
-            data[host]["Bandwidth"]=["0.00 Mbit/sec"]
+            data[host]["Bandwidth"]=["--- Mbit/sec"]
             data[host]["Memory"]=["110 %"]
-            data[host]["Load"]=["0.00", "0.00", "0.00"]
+            data[host]["Load"]=["---", "---", "---"]
     return data
 
     
 def sendToLog(data):
     publish.single("paradise/api/monitor",JSONEncoder().encode(data), port=8883, tls={'ca_certs':"ca.crt",'tls_version':2}, hostname="nyx.bjornhaug.net")
-    publish.single("paradise/log/monitor","Alive=True", port=8883, tls={'ca_certs':"ca.crt",'tls_version':2}, hostname="nyx.bjornhaug.net")
 
 if __name__ == "__main__":
     m = monitor(os.path.join(os.path.dirname(__file__),"hosts.txt"),os.path.join(os.path.dirname(__file__),"oids.txt"))
