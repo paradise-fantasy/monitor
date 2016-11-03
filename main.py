@@ -40,8 +40,8 @@ def reorder(data):
         del subset['memTotalReal']
         subset["Bandwidth"]=calculateBandwidth(subset['host'],subset['ifInOctets'][0])
         del subset['ifInOctets']
-        subset["Uptime"]=subset["sysUpTimeInstance"]
-        del subset["sysUpTimeInstance"]
+        subset["Uptime"]=subset["hrSystemUptime"]
+        del subset["hrSystemUptime"]
         subset["Host"]=[subset["host"]]
         del subset["host"]
         subset["Load"]=[subset["laLoad"]]
