@@ -1,4 +1,4 @@
-sysUpTimeInstance
+hrSystemUptime.0
 memTotalReal.0
 memAvailReal.0
 laLoad
