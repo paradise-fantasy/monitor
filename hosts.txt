@@ -5,3 +5,5 @@
 129.241.209.67;paradise
 nyx.bjornhaug.net;paradise
 129.241.209.163;paradise
+129.241.209.176;paradise
+129.241.200.190;paradise
