@@ -33,7 +33,7 @@ class host:
 
 
     def checkIfUpTime(self,data):
-        if "sysUpTime" in data:
+        if "hrSystemUptime" in data:
             return True
         return False
 
