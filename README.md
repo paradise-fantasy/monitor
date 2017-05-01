@@ -16,6 +16,20 @@ Edit the file `/etc/snmp/snmp.conf`, comment out everything.
 
 Place the `ca.crt`-file into the project folder.
 
+## Adding more hosts
+Monitored hosts do not need to clone this repo, only the manager host is required to use this. In order to add a monitored host, install `snmpd` on the host.
+
+
+
+On the manager host and add a line to the `hosts.txt` in the project folder:
+```
+[monitored host IP];[community];[display-name (arbitrary)]
+```
+E.g.
+```
+129.241.209.54;paradise;tormodVMWare
+```
+
 ## Run as cron-job
 Run `crontab -e`
 Create your cron-job, e.g. 
