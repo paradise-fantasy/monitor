@@ -21,7 +21,7 @@ Monitored hosts do not need to clone this repo, only the manager host is require
 
 
 
-On the manager host and add a line to the `hosts.txt` in the project folder:
+On the manager host, add a line to the `hosts.txt` in the project folder:
 ```
 [monitored host IP];[community];[display-name (arbitrary)]
 ```
