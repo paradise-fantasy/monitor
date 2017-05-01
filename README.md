@@ -15,3 +15,10 @@ pip install -r requirements.txt
 Edit the file `/etc/snmp/snmp.conf`, comment out everything.
 
 Place the `ca.crt`-file into the project folder.
+
+## Run as cron-job
+Run `crontab -e`
+Create your cron-job, e.g. 
+```
+5,10,15,20,25,30,35,40,45,50,55 * * * * python /monitor-folder/main.py
+``` 
