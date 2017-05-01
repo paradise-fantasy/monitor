@@ -1,7 +1,7 @@
 # monitor
 Program to monitor paradise computers, pies and other devices
 
-## Installation
+## Installation (Manager)
 Install `snmp`, `snmpd`, and `snmp-mibs-downloader`  with:
 ``` 
 sudo apt-get install snmp snmpd snmp-mibs-downloader
@@ -19,7 +19,22 @@ Place the `ca.crt`-file into the project folder.
 ## Adding more hosts
 Monitored hosts do not need to clone this repo, only the manager host is required to use this. In order to add a monitored host, install `snmpd` on the host.
 
+Open `/etc/snmp/snmpd.conf`, remove everything and add:
+```
+view systemonly included .1.3.6.1.2.1.1
+view systemonly included .1.2.6.1.2.1.25.1
 
+rocommunity  paradise 129.241.208.0/23
+rocommunity  paradise 127.0.0.1
+
+syslocation paradise
+syscontact paradise
+```
+
+Then restart `snmpd`:
+```
+sudo service snmpd restart
+```
 
 On the manager host, add a line to the `hosts.txt` in the project folder:
 ```
