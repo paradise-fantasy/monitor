@@ -1,5 +1,5 @@
 129.241.209.128;paradise;haavard
-129.241.208.69;paradise;tormod
+129.241.208.158;paradise;tormod
 129.241.208.240;paradise;kabbe
 129.241.209.67;paradise;merkur
 nyx.bjornhaug.net;paradise;mqtt
