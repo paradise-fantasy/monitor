@@ -10,3 +10,4 @@ nyx.bjornhaug.net;paradise;mqtt
 129.241.209.37;paradise;pingpong
 129.241.208.79;paradise;screen
 129.241.209.54;paradise;tormodVMWare
+212.24.104.111;paradise;PF-remote-backup
